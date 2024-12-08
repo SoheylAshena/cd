@@ -4,7 +4,9 @@ const CombinedApp = () => {
   const [activeTab, setActiveTab] = useState("EF");
 
   const formatNumber = (num) => {
-    return num; // Convert number to Persian (Farsi) format
+    // Convert number to locale string format with commas as thousand separators
+    const nini = num.toFixed();
+    return Number(nini).toLocaleString();
   };
 
   const [c, setC] = useState(0);
@@ -81,7 +83,7 @@ const CombinedApp = () => {
               setActiveTab("EF");
               resetResults();
             }}
-            className={`w-28 sm:w-32 py-2 text-lg font-semibold rounded-full focus:outline-none transition-all duration-300 ${
+            className={`w-28 sm:w-32 py-2 text-lg font-semibold rounded-lg focus:outline-none transition-all duration-300 ${
               activeTab === "EF"
                 ? "bg-blue-600 text-white shadow-lg transform scale-105"
                 : "bg-gray-200 text-gray-800 hover:bg-blue-500 hover:text-white"
@@ -94,7 +96,7 @@ const CombinedApp = () => {
               setActiveTab("CD");
               resetResults();
             }}
-            className={`w-28 sm:w-32 py-2 text-lg font-semibold rounded-full focus:outline-none transition-all duration-300 ${
+            className={`w-28 sm:w-32 py-2 text-lg font-semibold rounded-lg focus:outline-none transition-all duration-300 ${
               activeTab === "CD"
                 ? "bg-blue-600 text-white shadow-lg transform scale-105"
                 : "bg-gray-200 text-gray-800 hover:bg-blue-500 hover:text-white"
@@ -107,7 +109,7 @@ const CombinedApp = () => {
               setActiveTab("CCC");
               resetResults();
             }}
-            className={`w-28 sm:w-32 py-2 text-lg font-semibold rounded-full focus:outline-none transition-all duration-300 ${
+            className={`w-28 sm:w-32 py-2 text-lg font-semibold rounded-lg focus:outline-none transition-all duration-300 ${
               activeTab === "CCC"
                 ? "bg-blue-600 text-white shadow-lg transform scale-105"
                 : "bg-gray-200 text-gray-800 hover:bg-blue-500 hover:text-white"
@@ -118,14 +120,6 @@ const CombinedApp = () => {
         </div>
 
         <form onSubmit={calculateResults} className="space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-center text-gray-800">
-            {activeTab === "EF"
-              ? "Incoterms (E & F) 2020"
-              : activeTab === "CD"
-              ? "Incoterms (C & D) 2020"
-              : "Incoterms (CIF & CIP) 2020"}
-          </h2>
-
           <div>
             <label
               htmlFor="c"
@@ -189,7 +183,7 @@ const CombinedApp = () => {
                 name="customI"
                 value={customI}
                 onChange={(e) => setCustomI(e.target.value)}
-                placeholder="اگر خالی باشد محاسبه می‌شود"
+                placeholder="اگر خالی باشد با فرمول پنج هزارم محاسبه می‌شود"
                 className="w-full p-4 mt-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -252,7 +246,7 @@ const CombinedApp = () => {
             </span>
           </p>
           <p className="text-lg sm:text-xl text-gray-700">
-            مجموع حقوق و عوارض گمرکی برابر است با ={" "}
+            مجموع حقوق و عوارض گمرکی ={" "}
             <span className="text-blue-700">{formatNumber(totalSum)}</span>
           </p>
         </div>

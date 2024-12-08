@@ -17,7 +17,7 @@ const CombinedApp = () => {
   const [totalSum, setTotalSum] = useState(0);
 
   // Add state for the exchange rate (IRR per USD)
-  const [exchangeRate, setExchangeRate] = useState(42000); // Default to 42,000 IRR per USD
+  const [exchangeRate, setExchangeRate] = useState(70000); // Default to 42,000 IRR per USD
 
   const resetResults = () => {
     setI(0);

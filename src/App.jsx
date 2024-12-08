@@ -4,7 +4,7 @@ const CombinedApp = () => {
   const [activeTab, setActiveTab] = useState("EF");
 
   const formatNumber = (num) => {
-    return num.toLocaleString("fa-IR"); // Convert number to Persian (Farsi) format
+    return num; // Convert number to Persian (Farsi) format
   };
 
   const [c, setC] = useState(0);

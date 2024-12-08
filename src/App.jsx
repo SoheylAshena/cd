@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const App = () => {
-  // State variables for inputs
+const CombinedApp = () => {
+  const [activeTab, setActiveTab] = useState("EF");
+
+  const formatNumber = (num) => num.toLocaleString();
   const [c, setC] = useState(0);
   const [f, setF] = useState(0);
   const [x, setX] = useState(0);
-  const [customI, setCustomI] = useState(""); // New state for custom بیمه
-
-  // State variables for results
+  const [customI, setCustomI] = useState("");
   const [i, setI] = useState(0);
   const [cif, setCIF] = useState(0);
   const [resultX, setResultX] = useState(0);
@@ -16,7 +16,6 @@ const App = () => {
   const [municipalWaste, setMunicipalWaste] = useState(0);
   const [totalSum, setTotalSum] = useState(0);
 
-  // Function to reset the results
   const resetResults = () => {
     setI(0);
     setCIF(0);
@@ -27,26 +26,24 @@ const App = () => {
     setTotalSum(0);
   };
 
-  // Function to format numbers with thousands separators
-  const formatNumber = (num) => {
-    return num.toLocaleString(); // This will format the number with commas as thousands separators
-  };
-
-  // Handle calculations based on selected option (only E&F now)
   const calculateResults = (e) => {
     e.preventDefault();
+    let calculatedI = 0;
+    let calculatedCIF = 0;
 
-    // E&F: Calculate I, CIF, ResultX, Helal, ValueAddedTask, MunicipalWaste, and TotalSum
-    let calculatedI = 0.005 * (Number(c) + Number(f));
-    if (customI) {
-      // If the user has entered a custom بیمه value, use it
-      calculatedI = Number(customI);
+    if (activeTab === "EF") {
+      calculatedI = customI ? Number(customI) : 0.005 * (Number(c) + Number(f));
+      calculatedCIF = Number(c) + calculatedI + Number(f);
+    } else if (activeTab === "CD") {
+      calculatedI = customI ? Number(customI) : 0.005 * Number(c);
+      calculatedCIF = Number(c) + calculatedI;
+    } else if (activeTab === "CCC") {
+      calculatedCIF = Number(c);
     }
-    const calculatedCIF = Number(c) + calculatedI + Number(f);
+
     const calculatedResultX = calculatedCIF * (Number(x) / 100);
-    const calculatedHelal = calculatedCIF * (Number(x) / 100) * 0.01;
-    const calculatedValueAddedTask =
-      (calculatedCIF + (Number(x) / 100) * calculatedCIF) * 0.1;
+    const calculatedHelal = calculatedResultX * 0.01;
+    const calculatedValueAddedTask = (calculatedCIF + calculatedResultX) * 0.1;
     const calculatedMunicipalWaste = 0.001 * calculatedCIF;
     const calculatedTotalSum =
       calculatedResultX +
@@ -54,7 +51,6 @@ const App = () => {
       calculatedValueAddedTask +
       calculatedMunicipalWaste;
 
-    // Set results
     setI(calculatedI);
     setCIF(calculatedCIF);
     setResultX(calculatedResultX);
@@ -66,10 +62,45 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <form onSubmit={calculateResults} className="calculator-form">
-        <h2 className="form-title">Incoterms (E&F) 2020 </h2>
+      <div className="tab-container">
+        <button
+          onClick={() => {
+            setActiveTab("EF");
+            resetResults();
+          }}
+          className={`tab-button ${activeTab === "EF" ? "active" : ""}`}
+        >
+          Incoterms (E&F) 2020
+        </button>
+        <button
+          onClick={() => {
+            setActiveTab("CD");
+            resetResults();
+          }}
+          className={`tab-button ${activeTab === "CD" ? "active" : ""}`}
+        >
+          Incoterms (C&D) 2020
+        </button>
+        <button
+          onClick={() => {
+            setActiveTab("CCC");
+            resetResults();
+          }}
+          className={`tab-button ${activeTab === "CCC" ? "active" : ""}`}
+        >
+          Incoterms (CIF & CIP) 2020
+        </button>
+      </div>
 
-        {/* Input for C */}
+      <form onSubmit={calculateResults} className="calculator-form">
+        <h2 className="form-title">
+          {activeTab === "EF"
+            ? "Incoterms (E&F) 2020"
+            : activeTab === "CD"
+            ? "Incoterms (C&D) 2020"
+            : "Incoterms (CIF & CIP) 2020"}
+        </h2>
+
         <div className="input-container">
           <label htmlFor="c">قیمت خرید کالا در مبدا: </label>
           <input
@@ -81,19 +112,19 @@ const App = () => {
           />
         </div>
 
-        {/* Input for F */}
-        <div className="input-container">
-          <label htmlFor="f">کرایه حمل: </label>
-          <input
-            type="number"
-            name="f"
-            value={f}
-            onChange={(e) => setF(e.target.value)}
-            className="input-field"
-          />
-        </div>
+        {activeTab === "EF" && (
+          <div className="input-container">
+            <label htmlFor="f">کرایه حمل: </label>
+            <input
+              type="number"
+              name="f"
+              value={f}
+              onChange={(e) => setF(e.target.value)}
+              className="input-field"
+            />
+          </div>
+        )}
 
-        {/* Input for X */}
         <div className="input-container">
           <label htmlFor="x">درصد حقوق ورودی: </label>
           <input
@@ -105,31 +136,31 @@ const App = () => {
           />
         </div>
 
-        {/* Input for بیمه */}
-        <div className="input-container">
-          <label htmlFor="customI">بیمه (اختیاری): </label>
-          <input
-            type="number"
-            name="customI"
-            value={customI}
-            onChange={(e) => setCustomI(e.target.value)}
-            placeholder="اگر خالی باشد محاسبه می‌شود"
-            className="input-field"
-          />
-        </div>
+        {(activeTab === "EF" || activeTab === "CD") && (
+          <div className="input-container">
+            <label htmlFor="customI">بیمه (اختیاری): </label>
+            <input
+              type="number"
+              name="customI"
+              value={customI}
+              onChange={(e) => setCustomI(e.target.value)}
+              placeholder="اگر خالی باشد محاسبه می‌شود"
+              className="input-field"
+            />
+          </div>
+        )}
 
         <button type="submit" className="submit-btn">
           Calculate
         </button>
       </form>
 
-      {/* Result Display */}
       <div className="result-container">
-        <p className="result">بیمه = {formatNumber(i)}</p>
-        <p className="result">ارزش سیف = {formatNumber(cif)}</p>
-        {resultX !== null && (
-          <p className="result">حقوق ورودی = {formatNumber(resultX)}</p>
+        {activeTab !== "CCC" && (
+          <p className="result">بیمه = {formatNumber(i)}</p>
         )}
+        <p className="result">ارزش سیف = {formatNumber(cif)}</p>
+        <p className="result">حقوق ورودی = {formatNumber(resultX)}</p>
         <p className="result">هلال احمر = {formatNumber(helal)}</p>
         <p className="result">
           مالیات بر ارزش افزوده = {formatNumber(valueAddedTask)}
@@ -145,4 +176,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default CombinedApp;

@@ -59,7 +59,7 @@ const CCC = () => {
   return (
     <div className="app-container">
       <form onSubmit={calculateResults} className="calculator-form">
-        <h2 className="form-title">Incoterms (C&D) 2020 </h2>
+        <h2 className="form-title">Incoterms (CIF & CIP) 2020 </h2>
 
         {/* Input for C */}
         <div className="input-container">

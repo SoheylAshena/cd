@@ -3,7 +3,10 @@ import React, { useState } from "react";
 const CombinedApp = () => {
   const [activeTab, setActiveTab] = useState("EF");
 
-  const formatNumber = (num) => num.toLocaleString();
+  const formatNumber = (num) => {
+    return num.toLocaleString("fa-IR"); // Convert number to Persian (Farsi) format
+  };
+
   const [c, setC] = useState(0);
   const [f, setF] = useState(0);
   const [x, setX] = useState(0);
@@ -15,9 +18,7 @@ const CombinedApp = () => {
   const [valueAddedTask, setValueAddedTask] = useState(0);
   const [municipalWaste, setMunicipalWaste] = useState(0);
   const [totalSum, setTotalSum] = useState(0);
-
-  // Add state for the exchange rate (IRR per USD)
-  const [exchangeRate, setExchangeRate] = useState(70000); // Default to 42,000 IRR per USD
+  const [exchangeRate, setExchangeRate] = useState("");
 
   const resetResults = () => {
     setI(0);
@@ -29,7 +30,13 @@ const CombinedApp = () => {
     setTotalSum(0);
   };
 
-  const convertToIRR = (value) => value * exchangeRate;
+  const convertToIRR = (value) => {
+    if (exchangeRate.trim() === "") {
+      return value;
+    } else {
+      return value * exchangeRate;
+    }
+  };
 
   const calculateResults = (e) => {
     e.preventDefault();
@@ -56,7 +63,6 @@ const CombinedApp = () => {
       calculatedValueAddedTask +
       calculatedMunicipalWaste;
 
-    // Convert values to IRR
     setI(convertToIRR(calculatedI));
     setCIF(convertToIRR(calculatedCIF));
     setResultX(convertToIRR(calculatedResultX));
@@ -67,129 +73,189 @@ const CombinedApp = () => {
   };
 
   return (
-    <div className="app-container">
-      <div className="tab-container">
-        <button
-          onClick={() => {
-            setActiveTab("EF");
-            resetResults();
-          }}
-          className={`tab-button ${activeTab === "EF" ? "active" : ""}`}
-        >
-          Incoterms (E&F) 2020
-        </button>
-        <button
-          onClick={() => {
-            setActiveTab("CD");
-            resetResults();
-          }}
-          className={`tab-button ${activeTab === "CD" ? "active" : ""}`}
-        >
-          Incoterms (C&D) 2020
-        </button>
-        <button
-          onClick={() => {
-            setActiveTab("CCC");
-            resetResults();
-          }}
-          className={`tab-button ${activeTab === "CCC" ? "active" : ""}`}
-        >
-          Incoterms (CIF & CIP) 2020
-        </button>
-      </div>
-
-      <form onSubmit={calculateResults} className="calculator-form">
-        <h2 className="form-title">
-          {activeTab === "EF"
-            ? "Incoterms (E&F) 2020"
-            : activeTab === "CD"
-            ? "Incoterms (C&D) 2020"
-            : "Incoterms (CIF & CIP) 2020"}
-        </h2>
-
-        <div className="input-container">
-          <label htmlFor="c">قیمت خرید کالا در مبدا: </label>
-          <input
-            type="number"
-            name="c"
-            value={c}
-            onChange={(e) => setC(e.target.value)}
-            className="input-field"
-          />
+    <div className="bg-gradient-to-tr from-blue-500 to-cyan-500 min-h-screen flex justify-center items-center p-4 rtl">
+      <div className="bg-white rounded-xl shadow-lg w-full max-w-md sm:max-w-lg xl:max-w-xl p-6 lg:p-8">
+        <div className="flex space-x-4 mb-6 md:mb-8 justify-center">
+          <button
+            onClick={() => {
+              setActiveTab("EF");
+              resetResults();
+            }}
+            className={`w-28 sm:w-32 py-2 text-lg font-semibold rounded-full focus:outline-none transition-all duration-300 ${
+              activeTab === "EF"
+                ? "bg-blue-600 text-white shadow-lg transform scale-105"
+                : "bg-gray-200 text-gray-800 hover:bg-blue-500 hover:text-white"
+            }`}
+          >
+            Incoterms <br /> (E & F) 2020
+          </button>
+          <button
+            onClick={() => {
+              setActiveTab("CD");
+              resetResults();
+            }}
+            className={`w-28 sm:w-32 py-2 text-lg font-semibold rounded-full focus:outline-none transition-all duration-300 ${
+              activeTab === "CD"
+                ? "bg-blue-600 text-white shadow-lg transform scale-105"
+                : "bg-gray-200 text-gray-800 hover:bg-blue-500 hover:text-white"
+            }`}
+          >
+            Incoterms <br /> (C & D) 2020
+          </button>
+          <button
+            onClick={() => {
+              setActiveTab("CCC");
+              resetResults();
+            }}
+            className={`w-28 sm:w-32 py-2 text-lg font-semibold rounded-full focus:outline-none transition-all duration-300 ${
+              activeTab === "CCC"
+                ? "bg-blue-600 text-white shadow-lg transform scale-105"
+                : "bg-gray-200 text-gray-800 hover:bg-blue-500 hover:text-white"
+            }`}
+          >
+            Incoterms <br /> (CIF & CIP) 2020
+          </button>
         </div>
 
-        {activeTab === "EF" && (
-          <div className="input-container">
-            <label htmlFor="f">کرایه حمل: </label>
+        <form onSubmit={calculateResults} className="space-y-6">
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-center text-gray-800">
+            {activeTab === "EF"
+              ? "Incoterms (E & F) 2020"
+              : activeTab === "CD"
+              ? "Incoterms (C & D) 2020"
+              : "Incoterms (CIF & CIP) 2020"}
+          </h2>
+
+          <div>
+            <label
+              htmlFor="c"
+              className="block text-lg sm:text-xl font-medium text-gray-800"
+            >
+              قیمت خرید کالا در مبدا
+            </label>
             <input
               type="number"
-              name="f"
-              value={f}
-              onChange={(e) => setF(e.target.value)}
-              className="input-field"
+              name="c"
+              value={c}
+              onChange={(e) => setC(e.target.value)}
+              className="w-full p-4 mt-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
             />
           </div>
-        )}
 
-        <div className="input-container">
-          <label htmlFor="x">درصد حقوق ورودی: </label>
-          <input
-            type="number"
-            name="x"
-            value={x}
-            onChange={(e) => setX(e.target.value)}
-            className="input-field"
-          />
-        </div>
+          {activeTab === "EF" && (
+            <div>
+              <label
+                htmlFor="f"
+                className="block text-lg sm:text-xl font-medium text-gray-800"
+              >
+                کرایه حمل
+              </label>
+              <input
+                type="number"
+                name="f"
+                value={f}
+                onChange={(e) => setF(e.target.value)}
+                className="w-full p-4 mt-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          )}
 
-        {(activeTab === "EF" || activeTab === "CD") && (
-          <div className="input-container">
-            <label htmlFor="customI">بیمه (اختیاری): </label>
+          <div>
+            <label
+              htmlFor="x"
+              className="block text-lg sm:text-xl font-medium text-gray-800"
+            >
+              تعرفه ورودی
+            </label>
             <input
               type="number"
-              name="customI"
-              value={customI}
-              onChange={(e) => setCustomI(e.target.value)}
-              placeholder="اگر خالی باشد محاسبه می‌شود"
-              className="input-field"
+              name="x"
+              value={x}
+              onChange={(e) => setX(e.target.value)}
+              className="w-full p-4 mt-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
             />
           </div>
-        )}
 
-        {/* Input for exchange rate */}
-        <div className="input-container">
-          <label htmlFor="exchangeRate">نرخ تبدیل دلار به ریال : </label>
-          <input
-            type="number"
-            name="exchangeRate"
-            value={exchangeRate}
-            onChange={(e) => setExchangeRate(e.target.value)}
-            className="input-field"
-            min="1"
-          />
+          {(activeTab === "EF" || activeTab === "CD") && (
+            <div>
+              <label
+                htmlFor="customI"
+                className="block text-lg sm:text-xl font-medium text-gray-800"
+              >
+                بیمه
+              </label>
+              <input
+                type="number"
+                name="customI"
+                value={customI}
+                onChange={(e) => setCustomI(e.target.value)}
+                placeholder="اگر خالی باشد محاسبه می‌شود"
+                className="w-full p-4 mt-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          )}
+
+          <div>
+            <label
+              htmlFor="exchangeRate"
+              className="block text-lg sm:text-xl font-medium text-gray-800"
+            >
+              نرخ تبدیل دلار به ریال
+            </label>
+            <input
+              type="number"
+              name="exchangeRate"
+              value={exchangeRate}
+              placeholder="اگر خالی باشد به دلار محاسبه می‌شود"
+              onChange={(e) => setExchangeRate(e.target.value)}
+              className="w-full p-4 mt-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+              min="1"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 text-xl text-white bg-blue-600 rounded-xl mt-6 focus:outline-none hover:bg-blue-700 transition-all duration-300"
+          >
+            محاسبه
+          </button>
+        </form>
+
+        <div className="mt-8 text-center space-y-4">
+          {activeTab !== "CCC" && (
+            <p className="text-lg sm:text-xl text-gray-700">
+              بیمه = <span className="text-blue-700">{formatNumber(i)}</span>
+            </p>
+          )}
+          <p className="text-lg sm:text-xl text-gray-700">
+            ارزش سیف ={" "}
+            <span className="text-blue-700">{formatNumber(cif)}</span>
+          </p>
+          <p className="text-lg sm:text-xl text-gray-700">
+            حقوق ورودی ={" "}
+            <span className="text-blue-700">{formatNumber(resultX)}</span>
+          </p>
+          <p className="text-lg sm:text-xl text-gray-700">
+            هلال احمر ={" "}
+            <span className="text-blue-700">{formatNumber(helal)}</span>
+          </p>
+          <p className="text-lg sm:text-xl text-gray-700">
+            مالیات بر ارزش افزوده ={" "}
+            <span className="text-blue-700">
+              {formatNumber(valueAddedTask)}
+            </span>
+          </p>
+          <p className="text-lg sm:text-xl text-gray-700">
+            پسماند شهرداری ={" "}
+            <span className="text-blue-700">
+              {formatNumber(municipalWaste)}
+            </span>
+          </p>
+          <p className="text-lg sm:text-xl text-gray-700">
+            مجموع حقوق و عوارض گمرکی برابر است با ={" "}
+            <span className="text-blue-700">{formatNumber(totalSum)}</span>
+          </p>
         </div>
-
-        <button type="submit" className="submit-btn">
-          Calculate
-        </button>
-      </form>
-
-      <div className="result-container">
-        {activeTab !== "CCC" && (
-          <p className="result">بیمه = {formatNumber(i)}</p>
-        )}
-        <p className="result">ارزش سیف = {formatNumber(cif)}</p>
-        <p className="result">حقوق ورودی = {formatNumber(resultX)}</p>
-        <p className="result">هلال احمر = {formatNumber(helal)}</p>
-        <p className="result">
-          مالیات بر ارزش افزوده = {formatNumber(valueAddedTask)}
-        </p>
-        <p className="result">
-          پسماند شهرداری = {formatNumber(municipalWaste)}
-        </p>
-        <p className="result">
-          مجموع حقوق و عوارض گمرکی برابر است با = {formatNumber(totalSum)}
-        </p>
       </div>
     </div>
   );

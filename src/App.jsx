@@ -16,6 +16,9 @@ const CombinedApp = () => {
   const [municipalWaste, setMunicipalWaste] = useState(0);
   const [totalSum, setTotalSum] = useState(0);
 
+  // Add state for the exchange rate (IRR per USD)
+  const [exchangeRate, setExchangeRate] = useState(42000); // Default to 42,000 IRR per USD
+
   const resetResults = () => {
     setI(0);
     setCIF(0);
@@ -25,6 +28,8 @@ const CombinedApp = () => {
     setMunicipalWaste(0);
     setTotalSum(0);
   };
+
+  const convertToIRR = (value) => value * exchangeRate;
 
   const calculateResults = (e) => {
     e.preventDefault();
@@ -51,13 +56,14 @@ const CombinedApp = () => {
       calculatedValueAddedTask +
       calculatedMunicipalWaste;
 
-    setI(calculatedI);
-    setCIF(calculatedCIF);
-    setResultX(calculatedResultX);
-    setHelal(calculatedHelal);
-    setValueAddedTask(calculatedValueAddedTask);
-    setMunicipalWaste(calculatedMunicipalWaste);
-    setTotalSum(calculatedTotalSum);
+    // Convert values to IRR
+    setI(convertToIRR(calculatedI));
+    setCIF(convertToIRR(calculatedCIF));
+    setResultX(convertToIRR(calculatedResultX));
+    setHelal(convertToIRR(calculatedHelal));
+    setValueAddedTask(convertToIRR(calculatedValueAddedTask));
+    setMunicipalWaste(convertToIRR(calculatedMunicipalWaste));
+    setTotalSum(convertToIRR(calculatedTotalSum));
   };
 
   return (
@@ -149,6 +155,19 @@ const CombinedApp = () => {
             />
           </div>
         )}
+
+        {/* Input for exchange rate */}
+        <div className="input-container">
+          <label htmlFor="exchangeRate">نرخ تبدیل دلار به ریال : </label>
+          <input
+            type="number"
+            name="exchangeRate"
+            value={exchangeRate}
+            onChange={(e) => setExchangeRate(e.target.value)}
+            className="input-field"
+            min="1"
+          />
+        </div>
 
         <button type="submit" className="submit-btn">
           Calculate

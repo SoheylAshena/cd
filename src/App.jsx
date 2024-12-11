@@ -200,7 +200,6 @@ const CombinedApp = () => {
               type="number"
               name="exchangeRate"
               value={exchangeRate}
-              placeholder="اگر خالی باشد به دلار محاسبه می‌شود"
               onChange={(e) => setExchangeRate(e.target.value)}
               className="w-full p-4 mt-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
               min="1"

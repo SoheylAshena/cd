@@ -2,7 +2,7 @@ import React from "react";
 
 const Sider = ({ openSider }) => {
   const terms = {
-    "(General Trade Terms) تجارت عمومی": [
+    "(General Trade) تجارت عمومی": [
       { en: "Approach", fa: "راهکار" },
       { en: "After-Sales Service", fa: "خدمات پس از فروش" },
       { en: "Business", fa: "کسب‌وکار" },
@@ -29,7 +29,7 @@ const Sider = ({ openSider }) => {
       { en: "Trading Partner", fa: "طرف تجاری" },
       { en: "Trading Company", fa: "شرکت بازرگانی" },
     ],
-    "(Financial & Payment Terms) مالی و پرداخت": [
+    "(Financial & Payment ) مالی و پرداخت": [
       { en: "Advance Payment", fa: "پیش‌پرداخت" },
       { en: "Balance", fa: "مانده حساب" },
       { en: "Bank Slip", fa: "رسید بانکی" },
@@ -51,7 +51,7 @@ const Sider = ({ openSider }) => {
       { en: "Settlement", fa: "تسویه حساب" },
       { en: "Tariff", fa: "تعرفه" },
     ],
-    "(Shipping & Logistics Terms) حمل‌ونقل و لجستیک": [
+    "(Shipping & Logistics ) حمل‌ونقل و لجستیک": [
       { en: "Air", fa: "هوایی" },
       { en: "B/L (Bill of Lading)", fa: "بارنامه" },
       { en: "AWB (Air Waybill)", fa: "بارنامه هوایی" },
@@ -81,7 +81,7 @@ const Sider = ({ openSider }) => {
       { en: "Transit", fa: "ترانزیت" },
       { en: "Unstuffing", fa: "تخلیه کالا از کانتینر" },
     ],
-    "(Customs & Tariff Terms) گمرکی و تعرفه‌ها": [
+    "(Customs & Tariff ) گمرکی و تعرفه‌ها": [
       { en: "Customs", fa: "گمرک" },
       { en: "Customs Duties", fa: "حقوق گمرکی" },
       { en: "PSI (Pre-Shipment Inspection)", fa: "بازرسی قبل از ارسال" },
@@ -95,7 +95,7 @@ const Sider = ({ openSider }) => {
       { en: "Import License", fa: "مجوز واردات" },
       { en: "Import Duties", fa: "حقوق ورودی" },
     ],
-    "(Legal & Contract Terms) قراردادی و حقوقی": [
+    "(Legal & Contract ) قراردادی و حقوقی": [
       { en: "Agreement", fa: "توافق" },
       { en: "Breach of Contract", fa: "نقض قرارداد" },
       { en: "Contract", fa: "قرارداد" },
@@ -108,7 +108,7 @@ const Sider = ({ openSider }) => {
       { en: "Termination", fa: "فسخ قرارداد" },
       { en: "Arbitration", fa: "داوری" },
     ],
-    "(Management & Document Terms) مدیریت و اسناد": [
+    "(Management & Document ) مدیریت و اسناد": [
       { en: "Application", fa: "درخواست / کاربرد" },
       { en: "Details", fa: "جزئیات" },
       { en: "Document", fa: "سند" },
@@ -131,7 +131,7 @@ const Sider = ({ openSider }) => {
       { en: "DAP", fa: "تحویل در محل" },
       { en: "DDP", fa: "تحویل عوارض پرداخت شده" },
     ],
-    "(Miscellaneous Terms) متفرقه": [
+    "(Miscellaneous ) متفرقه": [
       { en: "Alloy", fa: "آلیاژ" },
       { en: "Attribute", fa: "ویژگی" },
       { en: "Category", fa: "طبقه‌بندی" },

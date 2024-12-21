@@ -258,7 +258,7 @@ const CombinedApp = () => {
               <span className="text-blue-700">{formatNumber(totalSum)}</span>
             </p>
             <button
-              className="w-[300px] py-3 text-xl text-blue-600 bg-blue-200 rounded-xl mt-6 focus:outline-none  transition-all duration-300"
+              className="w-full py-3 text-xl text-blue-600 bg-blue-200 rounded-xl mt-6 focus:outline-none  transition-all duration-300"
               onClick={openSider}
             >
               اصطلاحات بازرگانی خارجی

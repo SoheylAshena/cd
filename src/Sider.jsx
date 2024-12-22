@@ -131,8 +131,8 @@ const Sider = ({ openSider }) => {
       { en: "CPT", fa: "کرایه حمل تا مقصد" },
       { en: "CIP", fa: "کرایه حمل و بیمه کلاس آ تا مقصد" },
       { en: "DPU", fa: "تحویل در مقصد با تخلیه" },
-      { en: "DAP", fa: "تحویل در محل" },
-      { en: "DDP", fa: "تحویل عوارض پرداخت شده" },
+      { en: "DAP", fa: "تحویل در مقصد بدون تخلیه" },
+      { en: "DDP", fa: "تحویل با پرداخت حقوق گمرکی در مقصد بدون تخلیه" },
     ],
     "(Miscellaneous ) متفرقه": [
       { en: "Alloy", fa: "آلیاژ" },
@@ -144,7 +144,7 @@ const Sider = ({ openSider }) => {
       { en: "Detention", fa: "جریمه دیرکرد کانتینر" },
       {
         en: "Dumping",
-        fa: "دامپینگ (فروش کالا به قیمت پایین‌تر از قیمت تمام‌شده داخلی)",
+        fa: "دامپینگ (فروش کالا به قیمت پایین‌تر از قیمت تمام‌شده تولید داخلی)",
       },
       { en: "Effort", fa: "تلاش" },
       { en: "Hardware", fa: "سخت‌افزار" },
@@ -164,7 +164,6 @@ const Sider = ({ openSider }) => {
         en: "MSDS (Material Safety Data Sheet)",
         fa: "برگه اطلاعات ایمنی مواد",
       },
-      { en: "Manifest", fa: "فهرست کل کالا" },
       { en: "Negotiate", fa: "مذاکره کردن" },
       { en: "Negotiable", fa: "قابل مذاکره" },
       { en: "Potential Customer", fa: "مشتری احتمالی" },

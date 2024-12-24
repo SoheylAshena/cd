@@ -84,8 +84,8 @@ const CombinedApp = () => {
     <>
       {open === true && <Sider openSider={openSider} />}
 
-      <div className="bg-gradient-to-tr from-blue-500 to-cyan-500 min-h-screen flex justify-center items-center p-4 rtl">
-        <div className="bg-white rounded-xl shadow-lg w-full max-w-md sm:max-w-lg xl:max-w-xl p-6 lg:p-8">
+      <div className="bg-gradient-to-tr from-blue-500 to-cyan-500 min-h-screen flex justify-center items-center md:p-4 rtl">
+        <div className="bg-white md:rounded-xl shadow-lg w-full max-w-md sm:max-w-lg xl:max-w-xl p-6 lg:p-8">
           <div className="flex space-x-4 mb-6 md:mb-8 justify-center">
             <button
               onClick={() => {

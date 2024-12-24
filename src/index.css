@@ -5,4 +5,5 @@
 /* General App Styles */
 * {
   @apply text-center;
+  font-family: "Vazir", sans-serif;
 }

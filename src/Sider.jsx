@@ -41,7 +41,7 @@ const Sider = ({ openSider }) => {
       { en: "Deposit", fa: "پیش‌پرداخت / سپرده" },
       { en: "Discount", fa: "تخفیف" },
       { en: "Fee", fa: "هزینه" },
-      { en: "F/T number", fa: "شماره اسناد حمل در بارنامه" },
+      { en: "F/P number", fa: "شماره اسناد حمل در بارنامه" },
       { en: "Gross Weight", fa: "وزن ناخالص" },
       { en: "Net Weight", fa: "وزن خالص" },
       { en: "L/C (Letter of Credit)", fa: "اعتبار اسنادی" },
